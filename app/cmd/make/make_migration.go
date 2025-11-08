@@ -26,3 +26,4 @@ func runMakeMigration(cmd *cobra.Command, args []string) {
     createFileFromStub(filePath, "migration", model, map[string]string{"{{FileName}}": fileName})
     console.Success("Migration file created, after modify it, use `migrate up` to migrate database.")
 }
+
