@@ -53,13 +53,14 @@ func RegisterAPIRoutes(r *gin.Engine) {
 
             uc := new(controllers.UsersController)
 
-            // 获取当前用户
+            // 用户
             v1.GET("/user", middlewares.AuthJWT(), uc.CurrentUser)
             usersGroup := v1.Group("/users")
             {
                 usersGroup.GET("", uc.Index)
             }
 
+            // 分类
             cgc := new(controllers.CategoriesController)
             cgcGroup := v1.Group("/categories")
             {
@@ -69,6 +70,7 @@ func RegisterAPIRoutes(r *gin.Engine) {
                 cgcGroup.DELETE("/:id", middlewares.AuthJWT(), cgc.Delete)
             }
 
+            // 话题
             tpc := new(controllers.TopicsController)
             tpcGroup := v1.Group("/topics")
             {
@@ -77,6 +79,13 @@ func RegisterAPIRoutes(r *gin.Engine) {
                 tpcGroup.PUT("/:id", middlewares.AuthJWT(), tpc.Update)
                 tpcGroup.DELETE("/:id", middlewares.AuthJWT(), tpc.Delete)
                 tpcGroup.GET("/:id", tpc.Show)
+            }
+
+            // 友情链接
+            lsc := new(controllers.LinksController)
+            linksGroup := v1.Group("/links")
+            {
+                linksGroup.GET("", lsc.Index)
             }
         }
     }
